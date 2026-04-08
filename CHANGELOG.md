@@ -1,6 +1,7 @@
 ## 1.0.7
 
 Forked from [flutter_image_compress_common 1.0.6](https://pub.dev/packages/flutter_image_compress_common).
+Legacy-free: no CocoaPods, no Groovy, no AGP <9, no third-party iOS deps.
 
 - **BREAKING**: Remove WebP encoding support on iOS (decoding works natively on iOS 14+)
 - **BREAKING**: Remove CocoaPods support — SPM only
