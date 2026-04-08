@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.summary          = 'Lite fork of flutter_image_compress_common — SPM handles the actual build.'
   s.homepage         = 'https://github.com/qeepcologne/flutter_image_compress_lite'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'qeepcologne' => 'info@qeep.de' }
+  s.author           = { 'qeepcologne' => 'https://github.com/qeepcologne' }
   s.source           = { :path => '.' }
   s.ios.deployment_target = '15.0'
 
