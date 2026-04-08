@@ -9,7 +9,7 @@ Compress image with native Objective-C. Lite fork without SDWebImage/Mantle/libw
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'fluttercandies' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '14.0'
 
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
