@@ -7,6 +7,7 @@
 - **iOS**: Bump deployment target to 14.0
 - **Android**: Remove unused commons-io dependency
 - **Android**: Migrate build.gradle to Kotlin DSL with AGP 8+9 compat
+- **iOS**: Remove CocoaPods support — SPM only (no duplicate sources)
 
 ## 1.0.6
 
