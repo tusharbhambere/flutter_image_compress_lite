@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "flutter_image_compress_common",
     platforms: [
-        .iOS(.v14)
+        .iOS(.v15)
     ],
     products: [
         .library(name: "flutter-image-compress-common", targets: ["flutter_image_compress_common"])
