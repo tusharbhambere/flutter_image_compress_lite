@@ -1,29 +1,15 @@
-## 1.0.7+6
+## 2.0.0
 
-Forked from [flutter_image_compress_common 1.0.6](https://pub.dev/packages/flutter_image_compress_common).
-Legacy-free: no Groovy, no AGP <9, no third-party iOS deps.
+Merged `flutter_image_compress` + `flutter_image_compress_common` into a single standalone package.
+No federated plugin architecture, no transitive dependencies with podspecs, no CocoaPods required.
 
-- **BREAKING**: Remove WebP encoding support on iOS (decoding works natively on iOS 14+)
-- **iOS**: SPM for build, stub podspec included for mixed CocoaPods/SPM projects
-- **iOS**: Remove SDWebImage, SDWebImageWebPCoder, Mantle dependencies
-- **iOS**: Remove SYPictureMetadata — keepExif reimplemented with native ImageIO
-- **iOS**: Add Swift Package Manager support (Package.swift)
-- **iOS**: Bump deployment target to 15.0
-- **Android**: Remove unused commons-io dependency
-- **Android**: Migrate build.gradle to Kotlin DSL, require AGP 9+
-- **Android**: Bump minSdk to 24, exifinterface 1.3.3 → 1.4.2, heifwriter 1.0.0 → 1.1.0
-- **Dart/Flutter**: Require Dart ^3.11.0, Flutter >=3.41.0
+- **BREAKING**: New package name `flutter_image_compress_lite` — change import
+- **BREAKING**: Remove WebP encoding on iOS (decoding works natively on iOS 14+)
+- **BREAKING**: Require Dart ^3.11.0, Flutter >=3.41.0, iOS 15.0+, Android minSdk 24, AGP 9+
+- **iOS**: SPM only, zero third-party deps
+- **iOS**: keepExif via native ImageIO (no Mantle)
+- **Android**: Kotlin DSL, removed commons-io, bumped exifinterface 1.4.2, heifwriter 1.1.0
 
-### Fully removing CocoaPods
+## 1.0.7
 
-The upstream `flutter_image_compress_common` has a podspec which forces Flutter to run
-`pod install`. To eliminate CocoaPods entirely, also override the upstream with the
-`override` branch (no podspec, no plugin registration):
-
-```yaml
-dependency_overrides:
-  flutter_image_compress_common:
-    git:
-      url: https://github.com/qeepcologne/flutter_image_compress_lite.git
-      ref: override
-```
+Federated fork of flutter_image_compress_common (deprecated, use 2.0.0).

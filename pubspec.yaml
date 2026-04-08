@@ -1,7 +1,7 @@
-name: flutter_image_compress_common_lite
-description: Lite fork of flutter_image_compress_common — no WebP/SDWebImage/Mantle deps, SPM support, AGP 9 compat.
+name: flutter_image_compress_lite
+description: Standalone image compression plugin — no WebP deps, SPM support, AGP 9+. Drop-in replacement for flutter_image_compress.
 repository: https://github.com/qeepcologne/flutter_image_compress_lite
-version: 1.0.7+6
+version: 2.0.0
 
 environment:
   sdk: ^3.11.0
@@ -10,16 +10,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_image_compress_platform_interface: ^1.0.5
+  cross_file: ^0.3.5
 
 flutter:
   plugin:
-    implements: flutter_image_compress
     platforms:
       android:
         package: com.fluttercandies.flutter_image_compress
         pluginClass: ImageCompressPlugin
-        dartPluginClass: FlutterImageCompressCommon
       ios:
         pluginClass: ImageCompressPlugin
-        dartPluginClass: FlutterImageCompressCommon
