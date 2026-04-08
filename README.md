@@ -23,16 +23,15 @@ The upstream plugin bundles SDWebImage, Mantle, and libwebp on iOS just for WebP
 
 ## Usage
 
-Use as a `dependency_override` for `flutter_image_compress_common` in your `pubspec.yaml`:
+Published on [pub.dev](https://pub.dev/packages/flutter_image_compress_common_lite). Add as a direct dependency alongside the main package:
 
 ```yaml
-dependency_overrides:
-  flutter_image_compress_common:
-    git:
-      url: https://github.com/qeepcologne/flutter_image_compress_lite.git
+dependencies:
+  flutter_image_compress: ^2.4.0
+  flutter_image_compress_common_lite: ^1.0.7
 ```
 
-The Dart API (`flutter_image_compress`) stays unchanged — this only replaces the native implementation.
+Flutter's federated plugin resolution picks this over the default `flutter_image_compress_common` for Android and iOS. The Dart API stays unchanged.
 
 ## License
 
