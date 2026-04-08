@@ -17,7 +17,7 @@ The upstream plugin bundles SDWebImage, Mantle, and libwebp on iOS just for WebP
 | keepExif (iOS) | via Mantle/SYMetadata | native ImageIO (CGImageSource/CGImageDestination) |
 | keepExif (Android) | via ExifInterface | via ExifInterface (removed commons-io) |
 | SPM support | no | yes |
-| CocoaPods | yes | yes |
+| CocoaPods | yes | no (SPM only) |
 | AGP 9 compat | no | yes (Kotlin DSL) |
 | iOS deployment target | 9.0 | 14.0 |
 
