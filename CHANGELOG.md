@@ -15,7 +15,7 @@ Internal cleanup:
 - **Android**: removed dead code paths (`ResultHandler.replyError`, `ExifKeeper.copyExifToFile`, duplicate `Bitmap.compress` extensions, `System.gc()` in OOM retry, pre-Marshmallow `inDither` branch).
 - **iOS**: introduced `ImageCompressFormat` `NS_ENUM` mirroring the Dart/Android enums.
 - **iOS**: removed dead `getSystemVersion` Obj-C handler (Dart only calls Android for the API 28 check).
-- **Dart**: dropped `part`/`part of` in favor of regular libraries with `import`/`export`; `CompressFormat.nativeValue` getter replaces the private `_convertTypeToInt` helper.
+- **Dart**: dropped `part`/`part of` in favor of regular libraries with `import`/`export`; `CompressFormat.nativeValue` getter replaces the private `_convertTypeToInt` helper; default param values centralized in a private `_Defaults` class.
 
 ## 2.0.3
 
