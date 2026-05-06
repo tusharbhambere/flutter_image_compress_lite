@@ -24,6 +24,7 @@ class FlutterImageCompress {
 
   static final FlutterImageCompressValidator _validator = .new(_channel);
 
+
   static set showNativeLog(bool value) {
     _channel.invokeMethod('showLog', value);
   }
@@ -31,14 +32,14 @@ class FlutterImageCompress {
   /// Compress image from [Uint8List] to [Uint8List].
   static Future<typed_data.Uint8List> compressWithList(
     typed_data.Uint8List image, {
-    int minWidth = 1920,
-    int minHeight = 1080,
-    int quality = 95,
-    int rotate = 0,
-    int inSampleSize = 1,
-    bool autoCorrectionAngle = true,
-    CompressFormat format = .jpeg,
-    bool keepExif = false,
+    int minWidth = _Defaults.minWidth,
+    int minHeight = _Defaults.minHeight,
+    int quality = _Defaults.quality,
+    int rotate = _Defaults.rotate,
+    int inSampleSize = _Defaults.inSampleSize,
+    bool autoCorrectionAngle = _Defaults.autoCorrectionAngle,
+    CompressFormat format = _Defaults.format,
+    bool keepExif = _Defaults.keepExif,
   }) async {
     if (image.isEmpty) {
       throw CompressError('The image is empty.');
@@ -61,15 +62,15 @@ class FlutterImageCompress {
   /// Compress file of [path] to [Uint8List].
   static Future<typed_data.Uint8List?> compressWithFile(
     String path, {
-    int minWidth = 1920,
-    int minHeight = 1080,
-    int inSampleSize = 1,
-    int quality = 95,
-    int rotate = 0,
-    bool autoCorrectionAngle = true,
-    CompressFormat format = .jpeg,
-    bool keepExif = false,
-    int androidOomRetries = 5,
+    int minWidth = _Defaults.minWidth,
+    int minHeight = _Defaults.minHeight,
+    int inSampleSize = _Defaults.inSampleSize,
+    int quality = _Defaults.quality,
+    int rotate = _Defaults.rotate,
+    bool autoCorrectionAngle = _Defaults.autoCorrectionAngle,
+    CompressFormat format = _Defaults.format,
+    bool keepExif = _Defaults.keepExif,
+    int androidOomRetries = _Defaults.androidOomRetries,
   }) async {
     if (androidOomRetries <= 0) {
       throw CompressError('androidOomRetries must be greater than 0');
@@ -97,15 +98,15 @@ class FlutterImageCompress {
   static Future<XFile?> compressAndGetFile(
     String path,
     String targetPath, {
-    int minWidth = 1920,
-    int minHeight = 1080,
-    int inSampleSize = 1,
-    int quality = 95,
-    int rotate = 0,
-    bool autoCorrectionAngle = true,
-    CompressFormat format = .jpeg,
-    bool keepExif = false,
-    int androidOomRetries = 5,
+    int minWidth = _Defaults.minWidth,
+    int minHeight = _Defaults.minHeight,
+    int inSampleSize = _Defaults.inSampleSize,
+    int quality = _Defaults.quality,
+    int rotate = _Defaults.rotate,
+    bool autoCorrectionAngle = _Defaults.autoCorrectionAngle,
+    CompressFormat format = _Defaults.format,
+    bool keepExif = _Defaults.keepExif,
+    int androidOomRetries = _Defaults.androidOomRetries,
   }) async {
     if (androidOomRetries <= 0) {
       throw CompressError('androidOomRetries must be greater than 0');
@@ -143,13 +144,13 @@ class FlutterImageCompress {
   /// Compress image from asset.
   static Future<typed_data.Uint8List?> compressAssetImage(
     String assetName, {
-    int minWidth = 1920,
-    int minHeight = 1080,
-    int quality = 95,
-    int rotate = 0,
-    bool autoCorrectionAngle = true,
-    CompressFormat format = .jpeg,
-    bool keepExif = false,
+    int minWidth = _Defaults.minWidth,
+    int minHeight = _Defaults.minHeight,
+    int quality = _Defaults.quality,
+    int rotate = _Defaults.rotate,
+    bool autoCorrectionAngle = _Defaults.autoCorrectionAngle,
+    CompressFormat format = _Defaults.format,
+    bool keepExif = _Defaults.keepExif,
   }) async {
     final img = AssetImage(assetName);
     const config = ImageConfiguration();
@@ -170,4 +171,16 @@ class FlutterImageCompress {
       keepExif: keepExif,
     );
   }
+}
+
+class _Defaults {
+  static const int minWidth = 1920;
+  static const int minHeight = 1080;
+  static const int quality = 95;
+  static const int rotate = 0;
+  static const int inSampleSize = 1;
+  static const bool autoCorrectionAngle = true;
+  static const CompressFormat format = .jpeg;
+  static const bool keepExif = false;
+  static const int androidOomRetries = 5;
 }
