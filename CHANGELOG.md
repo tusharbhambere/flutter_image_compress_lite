@@ -1,7 +1,8 @@
-## 2.0.4
+## 2.1.0
 
 User-visible fixes:
 
+- **BREAKING**: `numberOfRetries` parameter on `compressWithFile` / `compressAndGetFile` renamed to `androidOomRetries`. The retry behavior was always Android-only (decode OOM → double `inSampleSize` and recurse); the new name reflects that. iOS ignores the value as before.
 - **iOS**: WebP encoding now throws `UnsupportedError` up front instead of silently returning `null` (decoding still works on iOS 14+).
 - **iOS**: HEIC encoding no longer writes through `NSTemporaryDirectory()` — uses `heifRepresentationOfImage:` directly. Removes a per-call temp-file leak.
 - **Dart**: validator contract is now consistent — every entry point throws `UnsupportedError` for unsupported encodings (previously some returned `null`). The validator only checks the *output* format; input formats are auto-detected by the native decoder.

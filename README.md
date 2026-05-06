@@ -31,7 +31,7 @@ Based on [flutter_image_compress](https://github.com/fluttercandies/flutter_imag
 
 ```yaml
 dependencies:
-  flutter_image_compress_lite: ^2.0.4
+  flutter_image_compress_lite: ^2.1.0
 ```
 
 ```dart
@@ -51,7 +51,7 @@ Same `FlutterImageCompress` API as the upstream — just change the import.
 - WebP encoding on iOS (decoding works on iOS 14+)
 - HEIC encoding on Android < API 28
 
-`CompressError` is thrown for invalid input (empty image, missing file, `numberOfRetries <= 0`).
+`CompressError` is thrown for invalid input (empty image, missing file, `androidOomRetries <= 0`).
 
 ## License
 

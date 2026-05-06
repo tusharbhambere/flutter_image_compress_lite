@@ -42,7 +42,7 @@ class HeifHandler : FormatHandler {
         rotate: Int,
         keepExif: Boolean,
         inSampleSize: Int,
-        numberOfRetries: Int,
+        oomRetries: Int,
     ) {
         val tmpFile = TmpFileUtil.createTmpFile(context)
         val bitmap = BitmapFactory.decodeFile(path, makeOptions(inSampleSize))

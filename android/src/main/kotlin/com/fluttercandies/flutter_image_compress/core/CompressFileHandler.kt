@@ -26,7 +26,7 @@ class CompressFileHandler(private val call: MethodCall, result: MethodChannel.Re
             val format = CompressFormat.fromIndex(args[6] as Int)
             val keepExif = args[7] as Boolean
             val inSampleSize = args[8] as Int
-            val numberOfRetries = args[9] as Int
+            val oomRetries = args[9] as Int
             if (format == null) {
                 log("No support format.")
                 reply(null)
@@ -62,7 +62,7 @@ class CompressFileHandler(private val call: MethodCall, result: MethodChannel.Re
                     targetRotate,
                     keepExif,
                     inSampleSize,
-                    numberOfRetries
+                    oomRetries
                 )
                 reply(outputStream.toByteArray())
             } catch (e: Exception) {
@@ -88,7 +88,7 @@ class CompressFileHandler(private val call: MethodCall, result: MethodChannel.Re
             val format = CompressFormat.fromIndex(args[7] as Int)
             val keepExif = args[8] as Boolean
             val inSampleSize = args[9] as Int
-            val numberOfRetries = args[10] as Int
+            val oomRetries = args[10] as Int
             if (format == null) {
                 log("No support format.")
                 reply(null)
@@ -124,7 +124,7 @@ class CompressFileHandler(private val call: MethodCall, result: MethodChannel.Re
                     targetRotate,
                     keepExif,
                     inSampleSize,
-                    numberOfRetries
+                    oomRetries
                 )
                 reply(targetPath)
             } catch (e: Exception) {

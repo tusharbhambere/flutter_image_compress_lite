@@ -51,9 +51,9 @@ class CommonHandler(override val type: CompressFormat) : FormatHandler {
         rotate: Int,
         keepExif: Boolean,
         inSampleSize: Int,
-        numberOfRetries: Int,
+        oomRetries: Int,
     ) {
-        if (numberOfRetries <= 0) return
+        if (oomRetries <= 0) return
         try {
             val bitmap = BitmapFactory.decodeFile(path, makeOptions(inSampleSize))
             val result = compressBitmap(bitmap, minWidth, minHeight, quality, rotate)
@@ -76,7 +76,7 @@ class CommonHandler(override val type: CompressFormat) : FormatHandler {
                 rotate,
                 keepExif,
                 inSampleSize * 2,
-                numberOfRetries - 1,
+                oomRetries - 1,
             )
         }
     }

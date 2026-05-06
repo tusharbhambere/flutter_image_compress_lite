@@ -30,6 +30,6 @@ interface FormatHandler {
         rotate: Int,
         keepExif: Boolean,
         inSampleSize: Int,
-        numberOfRetries: Int,
+        oomRetries: Int,
     )
 }

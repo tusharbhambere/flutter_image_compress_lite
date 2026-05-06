@@ -69,10 +69,10 @@ class FlutterImageCompress {
     bool autoCorrectionAngle = true,
     CompressFormat format = .jpeg,
     bool keepExif = false,
-    int numberOfRetries = 5,
+    int androidOomRetries = 5,
   }) async {
-    if (numberOfRetries <= 0) {
-      throw CompressError('numberOfRetries must be greater than 0');
+    if (androidOomRetries <= 0) {
+      throw CompressError('androidOomRetries must be greater than 0');
     }
     if (!File(path).existsSync()) {
       throw CompressError('Image file does not exist in $path.');
@@ -88,7 +88,7 @@ class FlutterImageCompress {
       format.nativeValue,
       keepExif,
       inSampleSize,
-      numberOfRetries,
+      androidOomRetries,
     ]);
     return result;
   }
@@ -105,10 +105,10 @@ class FlutterImageCompress {
     bool autoCorrectionAngle = true,
     CompressFormat format = .jpeg,
     bool keepExif = false,
-    int numberOfRetries = 5,
+    int androidOomRetries = 5,
   }) async {
-    if (numberOfRetries <= 0) {
-      throw CompressError('numberOfRetries must be greater than 0');
+    if (androidOomRetries <= 0) {
+      throw CompressError('androidOomRetries must be greater than 0');
     }
     if (!File(path).existsSync()) {
       throw CompressError('Image file does not exist in $path.');
@@ -131,7 +131,7 @@ class FlutterImageCompress {
         format.nativeValue,
         keepExif,
         inSampleSize,
-        numberOfRetries,
+        androidOomRetries,
       ],
     );
     if (result == null) {
