@@ -31,7 +31,7 @@ Based on [flutter_image_compress](https://github.com/fluttercandies/flutter_imag
 
 ```yaml
 dependencies:
-  flutter_image_compress_lite: ^2.1.0
+  flutter_image_compress_lite: ^2.1.1
 ```
 
 ```dart

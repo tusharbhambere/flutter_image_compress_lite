@@ -1,3 +1,7 @@
+## 2.1.1
+
+- **iOS**: fix iOS build failure introduced in 2.1.0 — corrected selector capitalization to `HEIFRepresentationOfImage:format:colorSpace:options:` (was `heifRepresentationOfImage:`, which doesn't exist on `CIContext`).
+
 ## 2.1.0
 
 User-visible fixes:

@@ -53,7 +53,7 @@
         NSDictionary *options = @{
             (__bridge NSString *)kCGImageDestinationLossyCompressionQuality: @(quality / 100.0)
         };
-        data = [ciContext heifRepresentationOfImage:ciImage
+        data = [ciContext HEIFRepresentationOfImage:ciImage
                                               format:kCIFormatARGB8
                                           colorSpace:ciImage.colorSpace
                                              options:options];
