@@ -43,10 +43,7 @@ class FlutterImageCompress {
     if (image.isEmpty) {
       throw CompressError('The image is empty.');
     }
-    final support = await _validator.checkSupportPlatform(format);
-    if (!support) {
-      throw UnsupportedError('The image type $format is not supported.');
-    }
+    await _validator.checkSupportPlatform(format);
     final result = await _channel.invokeMethod('compressWithList', [
       image,
       minWidth,
@@ -80,10 +77,7 @@ class FlutterImageCompress {
     if (!File(path).existsSync()) {
       throw CompressError('Image file does not exist in $path.');
     }
-    final support = await _validator.checkSupportPlatform(format);
-    if (!support) {
-      return null;
-    }
+    await _validator.checkSupportPlatform(format);
     final result = await _channel.invokeMethod('compressWithFile', [
       path,
       minWidth,
@@ -123,10 +117,7 @@ class FlutterImageCompress {
       throw CompressError('Target path and source path cannot be the same.');
     }
     _validator.checkFileNameAndFormat(targetPath, format);
-    final support = await _validator.checkSupportPlatform(format);
-    if (!support) {
-      return null;
-    }
+    await _validator.checkSupportPlatform(format);
     final String? result = await _channel.invokeMethod(
       'compressWithFileAndGetFile',
       [
