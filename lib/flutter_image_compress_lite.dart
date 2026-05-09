@@ -1,19 +1,18 @@
-// ignore_for_file: require_trailing_commas
-
-import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data' as typed_data;
 
 import 'package:cross_file/cross_file.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+
+import 'src/compress_error.dart';
+import 'src/compress_format.dart';
+import 'src/validator.dart';
 
 export 'package:cross_file/cross_file.dart';
 
-part 'src/compress_format.dart';
-part 'src/errors.dart';
-part 'src/validator.dart';
-part 'src/implementation.dart';
+export 'src/compress_error.dart';
+export 'src/compress_format.dart';
 
 /// Image Compress plugin.
 ///
@@ -23,8 +22,8 @@ part 'src/implementation.dart';
 class FlutterImageCompress {
   static const _channel = MethodChannel('flutter_image_compress');
 
-  static final FlutterImageCompressValidator _validator =
-      FlutterImageCompressValidator(_channel);
+  static final FlutterImageCompressValidator _validator = .new(_channel);
+
 
   static set showNativeLog(bool value) {
     _channel.invokeMethod('showLog', value);
@@ -33,22 +32,19 @@ class FlutterImageCompress {
   /// Compress image from [Uint8List] to [Uint8List].
   static Future<typed_data.Uint8List> compressWithList(
     typed_data.Uint8List image, {
-    int minWidth = 1920,
-    int minHeight = 1080,
-    int quality = 95,
-    int rotate = 0,
-    int inSampleSize = 1,
-    bool autoCorrectionAngle = true,
-    CompressFormat format = CompressFormat.jpeg,
-    bool keepExif = false,
+    int minWidth = _Defaults.minWidth,
+    int minHeight = _Defaults.minHeight,
+    int quality = _Defaults.quality,
+    int rotate = _Defaults.rotate,
+    int inSampleSize = _Defaults.inSampleSize,
+    bool autoCorrectionAngle = _Defaults.autoCorrectionAngle,
+    CompressFormat format = _Defaults.format,
+    bool keepExif = _Defaults.keepExif,
   }) async {
     if (image.isEmpty) {
       throw CompressError('The image is empty.');
     }
-    final support = await _validator.checkSupportPlatform(format);
-    if (!support) {
-      throw UnsupportedError('The image type $format is not supported.');
-    }
+    await _validator.checkSupportPlatform(format);
     final result = await _channel.invokeMethod('compressWithList', [
       image,
       minWidth,
@@ -56,7 +52,7 @@ class FlutterImageCompress {
       quality,
       rotate,
       autoCorrectionAngle,
-      _convertTypeToInt(format),
+      format.nativeValue,
       keepExif,
       inSampleSize,
     ]);
@@ -66,26 +62,23 @@ class FlutterImageCompress {
   /// Compress file of [path] to [Uint8List].
   static Future<typed_data.Uint8List?> compressWithFile(
     String path, {
-    int minWidth = 1920,
-    int minHeight = 1080,
-    int inSampleSize = 1,
-    int quality = 95,
-    int rotate = 0,
-    bool autoCorrectionAngle = true,
-    CompressFormat format = CompressFormat.jpeg,
-    bool keepExif = false,
-    int numberOfRetries = 5,
+    int minWidth = _Defaults.minWidth,
+    int minHeight = _Defaults.minHeight,
+    int inSampleSize = _Defaults.inSampleSize,
+    int quality = _Defaults.quality,
+    int rotate = _Defaults.rotate,
+    bool autoCorrectionAngle = _Defaults.autoCorrectionAngle,
+    CompressFormat format = _Defaults.format,
+    bool keepExif = _Defaults.keepExif,
+    int androidOomRetries = _Defaults.androidOomRetries,
   }) async {
-    if (numberOfRetries <= 0) {
-      throw CompressError("numberOfRetries can't be null or less than 0");
+    if (androidOomRetries <= 0) {
+      throw CompressError('androidOomRetries must be greater than 0');
     }
     if (!File(path).existsSync()) {
       throw CompressError('Image file does not exist in $path.');
     }
-    final support = await _validator.checkSupportPlatform(format);
-    if (!support) {
-      return null;
-    }
+    await _validator.checkSupportPlatform(format);
     final result = await _channel.invokeMethod('compressWithFile', [
       path,
       minWidth,
@@ -93,10 +86,10 @@ class FlutterImageCompress {
       quality,
       rotate,
       autoCorrectionAngle,
-      _convertTypeToInt(format),
+      format.nativeValue,
       keepExif,
       inSampleSize,
-      numberOfRetries
+      androidOomRetries,
     ]);
     return result;
   }
@@ -105,18 +98,18 @@ class FlutterImageCompress {
   static Future<XFile?> compressAndGetFile(
     String path,
     String targetPath, {
-    int minWidth = 1920,
-    int minHeight = 1080,
-    int inSampleSize = 1,
-    int quality = 95,
-    int rotate = 0,
-    bool autoCorrectionAngle = true,
-    CompressFormat format = CompressFormat.jpeg,
-    bool keepExif = false,
-    int numberOfRetries = 5,
+    int minWidth = _Defaults.minWidth,
+    int minHeight = _Defaults.minHeight,
+    int inSampleSize = _Defaults.inSampleSize,
+    int quality = _Defaults.quality,
+    int rotate = _Defaults.rotate,
+    bool autoCorrectionAngle = _Defaults.autoCorrectionAngle,
+    CompressFormat format = _Defaults.format,
+    bool keepExif = _Defaults.keepExif,
+    int androidOomRetries = _Defaults.androidOomRetries,
   }) async {
-    if (numberOfRetries <= 0) {
-      throw CompressError("numberOfRetries can't be null or less than 0");
+    if (androidOomRetries <= 0) {
+      throw CompressError('androidOomRetries must be greater than 0');
     }
     if (!File(path).existsSync()) {
       throw CompressError('Image file does not exist in $path.');
@@ -125,10 +118,7 @@ class FlutterImageCompress {
       throw CompressError('Target path and source path cannot be the same.');
     }
     _validator.checkFileNameAndFormat(targetPath, format);
-    final support = await _validator.checkSupportPlatform(format);
-    if (!support) {
-      return null;
-    }
+    await _validator.checkSupportPlatform(format);
     final String? result = await _channel.invokeMethod(
       'compressWithFileAndGetFile',
       [
@@ -139,10 +129,10 @@ class FlutterImageCompress {
         targetPath,
         rotate,
         autoCorrectionAngle,
-        _convertTypeToInt(format),
+        format.nativeValue,
         keepExif,
         inSampleSize,
-        numberOfRetries,
+        androidOomRetries,
       ],
     );
     if (result == null) {
@@ -154,18 +144,14 @@ class FlutterImageCompress {
   /// Compress image from asset.
   static Future<typed_data.Uint8List?> compressAssetImage(
     String assetName, {
-    int minWidth = 1920,
-    int minHeight = 1080,
-    int quality = 95,
-    int rotate = 0,
-    bool autoCorrectionAngle = true,
-    CompressFormat format = CompressFormat.jpeg,
-    bool keepExif = false,
+    int minWidth = _Defaults.minWidth,
+    int minHeight = _Defaults.minHeight,
+    int quality = _Defaults.quality,
+    int rotate = _Defaults.rotate,
+    bool autoCorrectionAngle = _Defaults.autoCorrectionAngle,
+    CompressFormat format = _Defaults.format,
+    bool keepExif = _Defaults.keepExif,
   }) async {
-    final support = await _validator.checkSupportPlatform(format);
-    if (!support) {
-      return null;
-    }
     final img = AssetImage(assetName);
     const config = ImageConfiguration();
     final AssetBundleImageKey key = await img.obtainKey(config);
@@ -187,4 +173,14 @@ class FlutterImageCompress {
   }
 }
 
-int _convertTypeToInt(CompressFormat format) => format.index;
+class _Defaults {
+  static const int minWidth = 1920;
+  static const int minHeight = 1080;
+  static const int quality = 95;
+  static const int rotate = 0;
+  static const int inSampleSize = 1;
+  static const bool autoCorrectionAngle = true;
+  static const CompressFormat format = .jpeg;
+  static const bool keepExif = false;
+  static const int androidOomRetries = 5;
+}
